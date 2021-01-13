@@ -1,24 +1,17 @@
 # Overview
 
-In this assignment you will implement a basic malloc/free allocator. This lab
-needs to be completed in C using the provided skeleton framework. You must also
-make sure your code compiles and works under the programming environment we have
-specified for this course. The overall goal is to expose you to C programming at
-some of the very lowest levels and very near to the machine and to solidify your
+This is an implemention of a basic malloc/free allocator. 
+The overall highlight of this project is to demostrate C programming at 
+some of the very lowest levels and very near to the machine and to solidify
 understanding of how memory allocators work.
 
-Before you begin you should read or re-read
-[Chapter 17 Free Space Management](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf)
-and keep this open as you complete this lab. This lab follows exactly their
-description of an allocator and will be crucial in your understanding of
-allocators as well as how to implement one!
+The engineering background of this memory allocator is introduced on [Chapter 17 Free Space Management](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf)
 
 # Part 1: Getting Acquainted with the Code
 
-There are five important files that you will need to become familiar with before
-starting this project:
+There are five important files
 
-- **`Makefile`**: This is the `Makefile` that will build your project. It will
+- **`Makefile`**: This is the `Makefile` that will build the project. It will
   generate two executable files: `main` and `malloc_tests`. The `main`
   executable allows you to run your allocator and `malloc_tests` will run public
   tests locally before submitting your project.
@@ -26,13 +19,10 @@ starting this project:
 - **`src/my_malloc.h`**: This file is the primary interface to your allocator.
   It includes the main interface for the two important allocator functions
   `my_malloc` and `my_free`. It also includes other functions that are primarily
-  used for debugging and testing. In addition, it includes definitions that you
-  will use in creating your allocator.
+  used for debugging and testing. In addition, it includes definitions used in creating your allocator.
 
 - **`src/my_malloc.cpp`**: This file will contain the implementation of your
-  allocator. You are welcome to introduce additional functions if necessary in
-  this file, however, you may not change the function signatures of functions
-  that you are to implement (i.e., those that contain a TODO).
+  allocator. 
 
 - **`/src/main.cpp`**: This file contains a simple main function that runs your
   allocator.
@@ -42,11 +32,8 @@ starting this project:
 
 # Part 2: Implementing the Allocator
 
-There are five functions in the allocator that you must implement: `find_free`,
-`split`, `my_malloc`, `coalesce`, and `my_free`. We will discuss each of these
-functions below. Before we discuss the functions that you need to implement let
-us first introduce you to the important definitions that you will need before
-starting.
+There are five functions in the allocator: `find_free`,
+`split`, `my_malloc`, `coalesce`, and `my_free`.
 
 ## Definitions
 

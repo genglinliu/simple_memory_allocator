@@ -80,11 +80,10 @@ void print_free_list() {
 // previous - the previous node to the found node
 
 void find_free(size_t size, node_t **found, node_t **previous) {
-  // TODO
-	node_t *curr = heap(); // before: head
+	node_t *curr = heap(); 
 	node_t *prev = NULL;
 	while (curr != NULL) {
-		if ((curr->size) + sizeof(node_t) >= size + sizeof(header_t)) { // before: curr->size + sizeof(head) >= size
+		if ((curr->size) + sizeof(node_t) >= size + sizeof(header_t)) { 
 			*found = curr;
 			*previous = prev;
 			break;
@@ -148,7 +147,6 @@ void split(size_t size, node_t **previous, node_t **free_block,
 // A void pointer to the region of allocated memory
 //
 void *my_malloc(size_t size) {
-  // TODO
 	node_t *found = NULL; 
 	node_t *prev = NULL;
 	header_t *allocated = NULL;
@@ -160,7 +158,6 @@ void *my_malloc(size_t size) {
 	split(size, &prev, &found, &allocated);
 
 	// adjust the pointer to right after the allocated header_t
-	// do we need to cast the pointer to (char*) like in coalesce()?
 	return ((char*)allocated) + sizeof(header_t);
 }
 
@@ -173,7 +170,6 @@ void *my_malloc(size_t size) {
 // free_block - the starting node on the free list to coalesce
 //
 void coalesce(node_t *free_block) {
-  // TODO
 	node_t *temp = free_block;
 	
 	// While we're neither done nor at the final node
@@ -198,7 +194,6 @@ void coalesce(node_t *free_block) {
 // allocated - a pointer to a region of memory previously allocated by my_malloc
 //
 void my_free(void *allocated) {
-  // TODO
 	header_t *h = (header_t*)allocated;
 	// first cast h to char* because we only want to shift by the header_t bytes
 	h = (header_t*)(((char*)h) - sizeof(header_t));
@@ -212,6 +207,5 @@ void my_free(void *allocated) {
 
   // coalesce on temp
 	coalesce(temp);
-
 	head = temp;
 }

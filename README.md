@@ -7,7 +7,7 @@ understanding of how memory allocators work.
 
 The engineering background of this memory allocator is introduced on [Chapter 17 Free Space Management](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf)
 
-# Part 1: Getting Acquainted with the Code
+<!-- # Part 1: Getting Acquainted with the Code
 
 There are five important files
 
@@ -63,24 +63,24 @@ maximum size of the heap (e.g., `HEAP_SIZE`).
 
 ## Details and Support Functions
 
-We have provided definitions that you will not need to implement. In particular,
-we have defined at the very top of the `my_malloc.cpp` a global pointer to the
+We have defined at the very top of the `my_malloc.cpp` a global pointer to the
 heap called `head`. The head pointer points to the first node on the free list.
-You will use this in your implementation of the free list.
+This is used in the implementation of the free list.
 
-- **`heap()`**: We also provide the `heap()` function that is used to allocate a
+- **`heap()`**: `heap()` function is used to allocate a
   large block of memory of size `HEAP_SIZE` from the operating system using the
   system call mmap. This function will allocate this large block of memory if
   one hasn't been allocated previously. It will also initialize that large block
   to be the first node on the free list. Note how we overlay our `node_t`
   structure on top of this large block of memory and set the size and next
   pointer appropriately. This function returns a pointer to the start of the
-  free list.
+  free list. 
+  This function demostrates how to overlay/embed a C structure on a block of memory
 
 - **`reset_heap()`**: This function is used to reallocate the heap. You will not
   need to use this function as it is used by the testing code to free the
   previous heap to the operating system and reallocate a new one. It may be
-  useful if you define your own tests.
+  useful if you define your own tests. 
 
 - **`free_list()`**: This function returns a pointer to the start of the free
   list.
@@ -100,17 +100,15 @@ work with the free list. In particular, you should study the implementation of
 (it is as easy as a cast). Next, we talk about the functions you need to
 implement and some basic hints to get you started.
 
-## Functions You Need to Implement
+## Functions Implemented
 
-You will implement a basic malloc/free allocator that uses the first-fit
+Implement a basic malloc/free allocator that uses the first-fit
 allocation scheme. That is, `my_malloc` will attempt to find the first node on
 the free list that has enough space to satisfy the call to `my_malloc` or return
-`NULL` to indicate that not enough memory is available. You allocator will only
+`NULL` to indicate that not enough memory is available. This allocator will only
 work with a heap of size of `HEAP_SIZE` and not attempt to allocate additional
-blocks of memory from the operating system. Although this limits the allocator
-in the amount of memory it can allocate, it is sufficient to give you an idea of
-the core functionality. Once you complete this lab it will be useful for you to
-think about how you might extend it to support more memory.
+blocks of memory from the operating system. This limits the allocator
+in the amount of memory it can allocate.
 
 ### `find_free`
 
@@ -118,8 +116,7 @@ think about how you might extend it to support more memory.
 find_free(size_t size, node_t **found, node_t **previous)
 ```
 
-The first function you should implement is the `find_free` function. This
-function makes use of double pointers to allow it to manipulate what the
+This function makes use of double pointers to allow it to manipulate what the
 provided pointers point to so it can return to the caller (by assigning these to
 these pointers, i.e., `*found` and `*previous`). The goal of the function is
 given a size of bytes to allocate it will find a node on the free list that can
@@ -200,7 +197,7 @@ The basic approach is this:
    the `size` field which will be the `size` requested in the parameter and
    assign the magic number.
 
-_Hints_: remember, when you are getting the size of "things" in C you should use
+_Hints_: remember, when getting the size of "things" in C we use
 the `sizeof` operation. Also remember that sizeof returns the number of bytes.
 Because you are adjusting pointers by some number of bytes you must make sure to
 cast a pointer to a `node_t` to a `char*` to make sure you are adding bytes and
@@ -219,15 +216,16 @@ void *my_malloc(size_t size)
 ```
 
 The goal of this function is relatively straightforward since it primarily
-relies on the two helper functions `find_free` and `split`. First, you should
-define some local pointers to pass to these functions. We called them `found`
+relies on the two helper functions `find_free` and `split`. First, need to
+define some local pointers to pass to these functions. They are called `found`
 and `previous` which are both `node_t*` types and allocated which is a
-`header_t*` type. Next, you need to make the call to `find_free` passing in the
-size and the `found` and `previous` pointers. After this call make sure you
-check to see if you found a free node. If not, you need to return `NULL`. After
-this you should call split passing in the appropriate arguments. Lastly, return
-a pointer to the allocated block. Note, you do not want to return the address to
-the start of the allocated block - you must adjust this pointer to be just after
+`header_t*` type. Next, need to make the call to `find_free` passing in the
+size and the `found` and `previous` pointers. After this call make sure we
+check to see if we found a free node. If not, return `NULL`. After
+this call split passing in the appropriate arguments. Lastly, return
+a pointer to the allocated block. 
+Note, do return the address to
+the start of the allocated block - we must adjust this pointer to be just after
 the allocated block's header (`header_t`). This will require a little pointer
 arithmetic.
 
@@ -279,4 +277,4 @@ that the magic field is indeed equal to `MAGIC`. Next, you simply need to cast
 the `header_t*` to a `node_t*` and set the size to the size of bytes we are
 freeing. Lastly, link in the freed node into the free list by making this newly
 freed node the start of the heap - don't forget to assign its next pointer to
-the previous head!
+the previous head! -->

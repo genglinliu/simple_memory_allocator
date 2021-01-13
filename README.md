@@ -7,7 +7,7 @@ understanding of how memory allocators work.
 
 The engineering background of this memory allocator is introduced on [Chapter 17 Free Space Management](http://pages.cs.wisc.edu/~remzi/OSTEP/vm-freespace.pdf)
 
-<!-- # Part 1: Getting Acquainted with the Code
+# Part 1: Getting Acquainted with the Code
 
 There are five important files
 
@@ -197,12 +197,12 @@ The basic approach is this:
    the `size` field which will be the `size` requested in the parameter and
    assign the magic number.
 
-_Hints_: remember, when getting the size of "things" in C we use
+<!-- _Hints_: remember, when getting the size of "things" in C we use
 the `sizeof` operation. Also remember that sizeof returns the number of bytes.
 Because you are adjusting pointers by some number of bytes you must make sure to
 cast a pointer to a `node_t` to a `char*` to make sure you are adding bytes and
 not adding by `node_t` size. For example, here is how we adjusted the pointer to
-the free block:
+the free block: -->
 
 ```c++
 size_t actual_size = size + sizeof(header_t);
@@ -224,10 +224,10 @@ size and the `found` and `previous` pointers. After this call make sure we
 check to see if we found a free node. If not, return `NULL`. After
 this call split passing in the appropriate arguments. Lastly, return
 a pointer to the allocated block. 
-Note, do return the address to
+<!-- Note, do return the address to
 the start of the allocated block - we must adjust this pointer to be just after
 the allocated block's header (`header_t`). This will require a little pointer
-arithmetic.
+arithmetic. -->
 
 ### `coalesce`
 
@@ -239,23 +239,23 @@ The goal of this function is to perform coalescing between adjacent
 nodes on the free list. This function will be called by `my_free`
 after freeing memory. The basic idea is to try to coalesce the block
 of memory we are freeing with the next node on the free list if they
-are adjacent in memory. You will repeat the coalescing process on the
+are adjacent in memory. Repeat the coalescing process on the
 newly coalesced node until you can't find a next node on the free list
 that is adjacent in memory or if there is only a single free node.
 
-To do this you will need to compare the value of the current free
+<!-- To do this you will need to compare the value of the current free
 block's next pointer to the address of the next adjacent block to see
 if they are the same. If they are the same then they can be coalesced.
 You will need to figure out how to merge two adjacent free blocks into
 one. This is as easy as adjusting pointers like you would do in any
 linked list implementation. Note, do make sure you update the size of
 the merged node to reflect the merged number of bytes and the size of
-the `node_t` at the start of the free block.
+the `node_t` at the start of the free block. -->
 
-_Hints_: When checking the addresses, make sure you remember to include the
+<!-- _Hints_: When checking the addresses, make sure you remember to include the
 `node_t` size as part of the block size of the free node. If not, you will be
 off by `sizeof(node_t)` bytes which means you will never identify adjacent
-blocks. Here is what we did:
+blocks. Here is what we did: -->
 
 ```c++
 size_t block_size = p->size + sizeof(node_t);
@@ -270,11 +270,13 @@ void my_free(void *allocated)
 ```
 
 This function is relatively easy with the help of the `coalesce` function above.
-First, cast the allocated parameter to a `header_t*` type. Remember, you need to
+First, cast the allocated parameter to a `header_t*` type. 
+<!-- Remember, you need to
 adjust the pointer that is given by `sizeof(header_t)` to point to the actual
 start of the allocated block. After you do that you should use assert to ensure
-that the magic field is indeed equal to `MAGIC`. Next, you simply need to cast
+that the magic field is indeed equal to `MAGIC`.  -->
+Next, you simply need to cast
 the `header_t*` to a `node_t*` and set the size to the size of bytes we are
 freeing. Lastly, link in the freed node into the free list by making this newly
 freed node the start of the heap - don't forget to assign its next pointer to
-the previous head! -->
+the previous head!

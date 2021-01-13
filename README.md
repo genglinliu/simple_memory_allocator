@@ -280,3 +280,6 @@ the `header_t*` to a `node_t*` and set the size to the size of bytes we are
 freeing. Lastly, link in the freed node into the free list by making this newly
 freed node the start of the heap - don't forget to assign its next pointer to
 the previous head!
+
+# Acknowlegement
+This repository is a modified version of the course project of CS377 - Operating Systems

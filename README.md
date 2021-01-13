@@ -282,4 +282,4 @@ freed node the start of the heap - don't forget to assign its next pointer to
 the previous head!
 
 # Acknowlegement
-This repository is a modified version of the course project of CS377 - Operating Systems
+This repository is a modified version of the course project of CS377 - Operating Systems (Spring 2020)
